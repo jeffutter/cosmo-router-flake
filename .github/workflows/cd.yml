@@ -1,0 +1,37 @@
+name: CD # Continuous Deployment
+
+on:
+  push:
+    tags:
+      - '[v]?[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  publish:
+    name: Publishing for ${{ matrix.job.os }}-${{ matrix.job.architecture }}
+    runs-on: ${{ matrix.job.os }}
+    strategy:
+      matrix:
+        rust: [stable]
+        job:
+          - os: ubuntu-latest
+            os-name: linux
+            target: x86_64-unknown-linux-gnu
+            architecture: x86_64
+            deb_architecture: amd64
+            binary-postfix: ""
+            use-cross: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@V27
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: cachix/cachix-action@v14
+        with:
+          name: jeffutter
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      - run: nix build --accept-flake-config
+      - run: nix flake check --accept-flake-config
