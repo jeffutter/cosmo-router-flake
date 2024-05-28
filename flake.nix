@@ -17,18 +17,18 @@
         pkgs = import nixpkgs { inherit system; };
         router = pkgs.buildGoModule rec {
           pname = "router";
-          version = "0.90.0";
+          version = "0.90.1";
 
           src =
             pkgs.fetchFromGitHub {
               owner = "wundergraph";
               repo = "cosmo";
               rev = "router@${version}";
-              hash = "sha256-A/xdWR8Lh5NIAcrHdOZrN6v31uy1SGmx0BqeG9EvLFk=";
+              hash = "sha256-8B8ZZWHQfOyY+giy0F7Rt7eYQWcqLtRwUNme8uMoVB0=";
             }
             + "/router";
 
-          vendorHash = "sha256-46zz15mTLGQ5NuBUWCl6Gu1/shazcX7v24JxAjIiQrs=";
+          vendorHash = "sha256-YXeIa4auisdobteVfqTH6z3dDa0NUsNBBDiO8XpxnJM=";
 
           CGO_ENABLED = 0;
           ldflags = [ "-extldflags '-static'" ];
