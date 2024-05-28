@@ -17,14 +17,14 @@
         pkgs = import nixpkgs { inherit system; };
         router = pkgs.buildGoModule rec {
           pname = "router";
-          version = "0.89.2";
+          version = "0.90.0";
 
           src =
             pkgs.fetchFromGitHub {
               owner = "wundergraph";
               repo = "cosmo";
               rev = "router@${version}";
-              hash = "sha256-GR//NgsZflSvTliyDoE4MrTS7z3b4s6PJh0LMVyBQuA=";
+              hash = "sha256-A/xdWR8Lh5NIAcrHdOZrN6v31uy1SGmx0BqeG9EvLFk=";
             }
             + "/router";
 
